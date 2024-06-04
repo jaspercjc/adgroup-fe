@@ -4,21 +4,12 @@
             <h1 class="text-lg font-bold text-white bg-gray-500 p-4">IP MANAGEMENT</h1>
 
             <div class="p-4">
-                <div class="flex justify-end">
-                    <q-btn
-                        icon="add"
-                        color="primary"
-                        label="New Record"
-                        @click="showCreateDialog = true"
-                    />
-                </div>
+                <IpTable />
             </div>
         </div>
-        <CreateRecord v-model="showCreateDialog" />
     </div>
 </template>
 
 <script setup>
-import CreateRecord from '@/components/CreateRecord.vue';
-const showCreateDialog = ref(false);
+import IpTable from '@/components/IpTable.vue';
 </script>
