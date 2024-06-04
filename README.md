@@ -1,16 +1,15 @@
-# fe
+# IP Address Management Solution - FE
 
-This template should help get you started developing with Vue 3 in Vite.
-
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+This is the front end of the project.
+[Backend](https://github.com/jaspercjc/adgroup-be) - for the backend.
 
 ## Project Setup
+
+Important: the FE and the BE should be served on the same domain.
+You can setup using a subdomain for example: the BE on api.project.test and the FE on project.test.
+Or using different ports like localhost:3000 on FE and localhost:8000 on BE
+
+## Install Dependencies
 
 ```sh
 npm install
@@ -20,16 +19,4 @@ npm install
 
 ```sh
 npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
 ```
