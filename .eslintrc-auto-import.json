@@ -296,6 +296,8 @@
     "whenever": true,
     "axios": true,
     "useAuthStore": true,
-    "useAppStore": true
+    "useAppStore": true,
+    "ipStore": true,
+    "useIpStore": true
   }
 }

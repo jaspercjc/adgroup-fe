@@ -5,7 +5,7 @@ const router = createRouter({
     routes: [
         {
             path: '/',
-            redirect: { name: 'MyAccount' },
+            redirect: { name: 'IpManagement' },
         },
         {
             path: '/login',
@@ -20,11 +20,11 @@ const router = createRouter({
             meta: { hideForAuth: true },
         },
         {
-            path: '/my-account',
-            name: 'MyAccount',
-            component: () => import('@/views/MyAccount.vue'),
+            path: '/ip-management',
+            name: 'IpManagement',
+            component: () => import('@/views/IpManagement.vue'),
             meta: {
-                title: 'MyAccount',
+                title: 'IpManagement',
                 requiresAuth: true,
             },
         },
@@ -48,7 +48,7 @@ router.beforeEach((to, from, next) => {
     if (requiresAuth && !currentUser.isAuthenticated) {
         next({ name: 'Login' });
     } else if (hideForAuth && currentUser.isAuthenticated) {
-        next({ name: 'MyAccount' });
+        next({ name: 'IpManagement' });
     } else {
         next();
     }

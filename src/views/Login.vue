@@ -106,7 +106,7 @@ async function submit() {
                 errorObject.value.errors = null;
 
                 if (userStore.isAuthenticated) {
-                    router.replace({ name: 'MyAccount' });
+                    router.replace({ name: 'IpManagement' });
                 }
             } catch (error) {
                 errorObject.value.message = error.message;
