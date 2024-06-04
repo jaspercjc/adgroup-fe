@@ -10,7 +10,7 @@ import { Notify } from 'quasar';
 const BASE_API_URL = import.meta.env.VITE_API_BASE_URL;
 
 const axiosInstance = axios.create({
-    baseURL: BASE_API_URL,
+    baseURL: BASE_API_URL ?? 'https://ip-management-api.jasper-castillo.com/api',
     withCredentials: true,
     withXSRFToken: true,
 });
