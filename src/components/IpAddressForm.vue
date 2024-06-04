@@ -2,15 +2,19 @@
     <q-dialog v-model="open" persistent>
         <q-card style="min-width: 350px">
             <q-card-section class="bg-primary text-primary-text">
-                <div class="text-h6">Create Record</div>
+                <div class="text-h6">
+                    {{ isCreate ? 'Create Record' : `Update ${props.data.ip_address}` }}
+                </div>
             </q-card-section>
 
             <q-card-section class="class flex flex-col gap-4">
                 <q-input
+                    v-if="isCreate"
                     v-model="form.ip_address"
                     label="IP Address"
                     dense
                     outlined
+                    :autofocus="isCreate"
                     :error="formErrors['ip_address'] ? true : null"
                     :error-message="formErrors['ip_address']"
                 />
@@ -19,6 +23,7 @@
                     label="Assignment"
                     dense
                     outlined
+                    :autofocus="!isCreate"
                     :error="formErrors['assignment'] ? true : null"
                     :error-message="formErrors['assignment']"
                 />
@@ -43,7 +48,13 @@
 const emit = defineEmits(['update:model-value', 'refetch']);
 const props = defineProps({
     modelValue: Boolean,
+    data: {
+        type: Object,
+        required: false,
+    },
 });
+
+const isCreate = computed(() => (props.data ? false : true));
 
 const ipStore = useIpStore();
 const open = ref(false);
@@ -57,9 +68,13 @@ const form = ref({
 
 async function submit() {
     loading.value = true;
+    formErrors.value = {};
     try {
-        await ipStore.create(form.value);
-        formErrors.value = {};
+        if (isCreate.value) {
+            await ipStore.create(form.value);
+        } else {
+            await ipStore.update(props.data.id, form.value);
+        }
         emit('update:model-value', false);
         emit('refetch');
         loading.value = false;
@@ -72,6 +87,17 @@ async function submit() {
 watch(
     () => props.modelValue,
     (value) => {
+        if (props.data) {
+            form.value = {
+                ip_address: props.data.ip_address,
+                assignment: props.data.assignment,
+            };
+        } else {
+            form.value = {
+                ip_address: '',
+                assignment: '',
+            };
+        }
         open.value = value;
         formErrors.value = {};
     }

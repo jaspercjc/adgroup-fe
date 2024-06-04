@@ -40,14 +40,10 @@
 
         <template v-slot:top-right>
             <div class="flex justify-end">
-                <q-btn
-                    icon="add"
-                    color="primary"
-                    label="New Record"
-                    @click="showCreateDialog = true"
-                />
+                <q-btn icon="add" color="primary" label="New Record" @click="handleAction()" />
             </div>
         </template>
+
         <template v-slot:no-data="{ icon, message, filter }">
             <div class="full-width row flex-center text-warning q-gutter-sm">
                 <q-icon size="2em" name="sentiment_dissatisfied" />
@@ -56,64 +52,36 @@
             </div>
         </template>
 
-        <template v-slot:pagination="scope">
-            <span>{{ `Page ${scope.pagination.page} of ${scope.pagesNumber}` }}</span>
-            <q-btn
-                v-if="scope.pagesNumber > 2"
-                icon="first_page"
-                color="primary"
-                round
-                dense
-                flat
-                :disable="scope.isFirstPage"
-                @click="scope.firstPage"
-            />
-
-            <q-btn
-                v-if="scope.pagesNumber > 1"
-                icon="chevron_left"
-                color="primary"
-                round
-                dense
-                flat
-                :disable="scope.isFirstPage"
-                @click="scope.prevPage"
-            />
-
-            <q-btn
-                v-if="scope.pagesNumber > 1"
-                icon="chevron_right"
-                color="primary"
-                round
-                dense
-                flat
-                :disable="scope.isLastPage"
-                @click="scope.nextPage"
-            />
-
-            <q-btn
-                v-if="scope.pagesNumber > 2"
-                icon="last_page"
-                color="primary"
-                round
-                dense
-                flat
-                :disable="scope.isLastPage"
-                @click="scope.lastPage"
-            />
+        <template v-slot:body-cell-actions="props">
+            <q-td :props="props" auto-width>
+                <q-btn
+                    color="primary"
+                    icon="edit"
+                    size="sm"
+                    flat
+                    round
+                    @click="handleAction(props.row)"
+                >
+                    <q-tooltip color="secondary">Edit</q-tooltip>
+                </q-btn>
+            </q-td>
         </template>
     </q-table>
-    <CreateRecord v-model="showCreateDialog" @refetch="onRequest({ pagination })" />
+    <IpAddressForm
+        v-model="showFormDialog"
+        :data="selectedRow"
+        @refetch="onRequest({ pagination })"
+    />
 </template>
 
 <script setup>
-import CreateRecord from '@/components/CreateRecord.vue';
+import IpAddressForm from '@/components/IpAddressForm.vue';
 
 const app = useAppStore();
 const search = ref('');
 const loading = ref(false);
 
-const showCreateDialog = ref(false);
+const showFormDialog = ref(false);
 
 const pagination = ref({
     sortBy: 'id',
@@ -138,12 +106,16 @@ const tableColumns = ref([
         field: 'assignment',
         sortable: true,
     },
+    {
+        name: 'actions',
+        label: '',
+        align: 'center',
+        field: 'actions',
+        sortable: false,
+    },
 ]);
 
-const showForm = ref(false);
-const rowData = ref(null);
-const router = useRouter();
-const actionComponent = shallowRef(null);
+const selectedRow = ref(null);
 
 const rows = ref([]);
 async function onRequest(event) {
@@ -171,6 +143,11 @@ async function onRequest(event) {
         .catch((error) => {
             loading.value = false;
         });
+}
+
+function handleAction(data = null) {
+    selectedRow.value = data;
+    showFormDialog.value = true;
 }
 
 onMounted(() => {
