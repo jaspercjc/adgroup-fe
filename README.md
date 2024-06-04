@@ -20,3 +20,7 @@ npm install
 ```sh
 npm run dev
 ```
+
+### Environment Variables
+
+There are only three environment variables, you can copy from .env.example file and modify the values as you see fit.
