@@ -64,13 +64,7 @@
                         Login
                     </template>
                 </q-btn>
-                <q-btn
-                    flat
-                    color="primary"
-                    @click="submit"
-                    label="Create an account"
-                    :to="{ name: 'Register' }"
-                />
+                <q-btn flat color="primary" label="Create an account" :to="{ name: 'Register' }" />
             </div>
         </div>
     </div>
