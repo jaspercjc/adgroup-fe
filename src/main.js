@@ -15,19 +15,20 @@ import App from './App.vue';
 import router from './router';
 
 const pinia = createPinia();
-// const authStore = useAuthStore(pinia);
+const authStore = useAuthStore(pinia);
 
 // Allow router to be accessed in all pinia stores under this.router
 pinia.use(({ store }) => {
     store.router = markRaw(router);
 });
 
-// authStore.fetchUser().then(() => {
-const app = createApp(App);
+authStore.fetchUser().then(() => {
+    const app = createApp(App);
 
-app.use(pinia);
-app.use(router);
-app.use(Quasar, quasarUserOptions);
+    app.use(pinia);
+    app.use(axios);
+    app.use(router);
+    app.use(Quasar, quasarUserOptions);
 
-app.mount('#app');
-// });
+    app.mount('#app');
+});

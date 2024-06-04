@@ -294,6 +294,8 @@
     "watchTriggerable": true,
     "watchWithFilter": true,
     "whenever": true,
-    "axios": true
+    "axios": true,
+    "useAuthStore": true,
+    "useAppStore": true
   }
 }

@@ -55,7 +55,7 @@ export default ({ mode }) => {
 
                 // Auto import for module exports under directories
                 // by default it only scan one level of modules under the directory
-                dirs: ['./src/stores'],
+                dirs: ['./src/stores', './src/plugins'],
 
                 // Filepath to generate corresponding .d.ts file.
                 // Defaults to './auto-imports.d.ts' when `typescript` is installed locally.
