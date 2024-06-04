@@ -13,6 +13,7 @@
     "dependencies": {
         "@quasar/extras": "^1.16.11",
         "@vueuse/core": "^10.10.0",
+        "moment": "^2.30.1",
         "pinia": "^2.1.7",
         "quasar": "^2.16.4",
         "ua-parser-js": "^1.0.37",

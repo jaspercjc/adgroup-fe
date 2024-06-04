@@ -24,7 +24,14 @@ const router = createRouter({
             name: 'IpManagement',
             component: () => import('@/views/IpManagement.vue'),
             meta: {
-                title: 'IpManagement',
+                requiresAuth: true,
+            },
+        },
+        {
+            path: '/activity-logs',
+            name: 'ActivityLogs',
+            component: () => import('@/views/ActivityLog.vue'),
+            meta: {
                 requiresAuth: true,
             },
         },
